@@ -5,14 +5,14 @@ services:
     image: postgres:13.2
     environment:
       - TZ=Europe/Kiev
-      - POSTGRES_USER=service_user
-      - POSTGRES_PASSWORD=secret_pass
-      - POSTGRES_DB=service
+      - POSTGRES_USER=road_service
+      - POSTGRES_PASSWORD=road_service
+      - POSTGRES_DB=road_service
       - PGPORT=5432
     ports:
       - 5432:5432
     volumes:
-      - /road:/app
+      - /road_service:/app
 
   server:
     build:

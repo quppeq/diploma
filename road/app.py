@@ -1,9 +1,11 @@
+import os
 from flask import Flask
 
 from flask_migrate import MigrateCommand
 from flask_script import Manager, Server
 
-from db import db
+from road.db import db
+from road.config import secrets
 
 
 def configure_db(app: Flask):
@@ -21,4 +23,6 @@ def create_app():
     app = Flask(__name__)
     configure_db(app)
     app.manager = configure_manager(app)
+    app.config.update(secrets)
+    app.debug = os.getenv("DEBUG", True)
     return app

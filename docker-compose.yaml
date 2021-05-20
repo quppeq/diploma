@@ -2,11 +2,18 @@ version: '3'
 
 services:
   db:
-    image: postgres
+    image: postgres:13.2
     environment:
       - TZ=Europe/Kiev
+      - POSTGRES_USER=service_user
+      - POSTGRES_PASSWORD=secret_pass
+      - POSTGRES_DB=service
+      - PGPORT=5432
+    ports:
+      - 5432:5432
     volumes:
       - /road:/app
+
   server:
     build:
       context: .
@@ -21,5 +28,23 @@ services:
       - .:/app
     ports:
       - "5000:5000"
+    depends_on:
+      - db
+
+  db-migrate:
+    build: .
+    image: road-condition
+    command: [ "python3","manage.py", "db", "migrate" ]
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db-upgrade:
+    build: .
+    image: road-condition
+    command: [ "python3","manage.py", "db", "upgrade" ]
+    volumes:
+      - .:/app
     depends_on:
       - db

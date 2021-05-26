@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 def configure_app(app):
     app.config["BASE_DIR"] = os.path.dirname(os.path.dirname(__file__))
     app.config["TEMPLATE_FOLDER"] = os.path.join(app.config["BASE_DIR"], 'templates')
-    print(app.config["TEMPLATE_FOLDER"])
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
 
 def load_secrets(base_dir: str):

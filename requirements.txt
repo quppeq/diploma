@@ -7,3 +7,5 @@ flask==1.1.2
 
 flask-migrate==2.7.0
 flask-script==2.0.6
+flask-googlemaps==0.4.0
+#git+https://github.com/flask-extensions/Flask-GoogleMaps.git@4.1.1.2#egg=flask_googlemaps

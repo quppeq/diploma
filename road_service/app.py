@@ -1,10 +1,11 @@
 import os
 from flask import Flask
 
-from flask_migrate import MigrateCommand
+from flask_migrate import MigrateCommand, Migrate
 from flask_script import Manager, Server
 
 from road_service.db import db
+from road_service.maps import maps
 from road_service.config import configure_app, load_secrets
 
 from road_service.view import set_up_view
@@ -15,6 +16,11 @@ TEMPLATE_FOLDER = os.path.join(ROOT_FOLDER, 'templates')
 
 def configure_db(app: Flask):
     db.init_app(app)
+    Migrate(app, db)
+
+
+def configure_maps(app: Flask):
+    maps.init_app(app)
 
 
 def configure_manager(app: Flask) -> Manager:
@@ -34,6 +40,7 @@ def create_app():
     app.debug = os.getenv("DEBUG", True)
 
     configure_db(app)
+    configure_maps(app)
 
     set_up_view(app)
 

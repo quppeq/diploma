@@ -2,12 +2,11 @@ from flask import request, jsonify, g
 from flask.views import MethodView
 
 from road_service.db import db
-from road_service.maps import maps
 
 from road_service.models.user import User
 
 
-class RoadView(MethodView):
+class UserView(MethodView):
 
     def get(self):
         data = request.json

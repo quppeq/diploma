@@ -23,5 +23,10 @@ def set_up_view(app: Flask):
         view_func=RoadView.as_view('road')
     )
 
+    mod.add_url_rule(
+        'user',
+        view_func=RoadView.as_view('road')
+    )
+
     # Реєстрація блюпрінта
     app.register_blueprint(mod, url_prefix='/')

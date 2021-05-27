@@ -11,12 +11,12 @@ class MapsView(MethodView):
     def get(self):
         mymap = Map(
             identifier="map",
-            lat=37.4419,
-            lng=-122.1419,
+            lat=50.4419,
+            lng=35.1419,
             markers=[
                 {
-                    'lat': 37.4419,
-                    'lng': -122.1419,
+                    'lat': 50.4419,
+                    'lng': 35.1419,
                     'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                     'infobox': "<b>Яма!</b>"
                 },

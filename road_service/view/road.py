@@ -1,10 +1,11 @@
-from flask import request, jsonify, g
+from flask import request, jsonify, render_template, g
 from flask.views import MethodView
+from flask_googlemaps import Map
 
 from road_service.db import db
 from road_service.maps import maps
 
-from road_service.models.road import Road
+from road_service.models.road import Road, Pit, RoadGroup
 
 
 class RoadView(MethodView):
@@ -22,23 +23,53 @@ class RoadView(MethodView):
 
     def post(self):
         data = request.json
-        lat = data['lat']
-        lng = data['lng']
+        roads = data['roads']
+        road_group = RoadGroup(user_id=g.user.id)
+        db.session.add(road_group)
+        db.session.flush()
+        for road in roads:
+            lat = road['lat']
+            lng = road['lng']
 
-        x_acc = data.get('x_acc')
-        y_acc = data.get('y_acc')
-        z_acc = data.get('z_acc')
+            x_acc = road.get('x_acc')
+            y_acc = road.get('y_acc')
+            z_acc = road.get('z_acc')
 
-        road = Road(
-            lat=lat,
-            lng=lng,
-            x_acc=x_acc,
-            y_acc=y_acc,
-            z_acc=z_acc,
-        )
-        db.session.add(road)
+            road = Road(
+                lat=lat,
+                lng=lng,
+                x_acc=x_acc,
+                y_acc=y_acc,
+                z_acc=z_acc,
+                road_group_id=road_group.id,
+                user_id=g.user.id
+            )
+            db.session.add(road)
         db.session.commit()
         return jsonify({
-            'lat': road.lat,
-            'lng': road.lng
+            'status': 'ok!'
         })
+
+
+class PitView(MethodView):
+
+    def get(self):
+        pits = db.session.query(Pit).all()
+
+        markers = [{
+            'lat': pit.lat,
+            'lng': pit.lng,
+            'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+            'infobox': "<b>Яма користувача {}</b>".format(pit.user.username),
+        } for pit in pits]
+        lat = markers[0]['lat'] if markers else 0
+        lng = markers[0]['lng'] if markers else 0
+
+        mymap = Map(
+            identifier="map",
+            lat=0,
+            lng=0,
+            markers=markers
+        )
+        return render_template('map.jinja2', map=mymap)
+

@@ -1,0 +1,86 @@
+POST http://localhost:5000/registration
+Content-Type: application/json
+
+{
+  "username": "quppeq",
+  "first_name": "Borys",
+  "last_name": "Fomskyi",
+  "password": "test"
+}
+
+###
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "username": "quppeq",
+  "password": "test"
+}
+
+###
+
+POST http://localhost:5000/road
+Content-Type: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjIyNDQzMjMsInVzZXJuYW1lIjoicXVwcGVxIn0.C6hRFDHZ7BKqhCXlxQACM0aZBh-ycCXPjOCJCFLoKiE
+
+{
+  "roads": [
+    {
+      "lng": 24.708101,
+      "lat": 51.209133,
+      "x_acc": 0,
+      "y_acc": 0,
+      "z_acc": 0
+    },
+    {
+      "lng": 24.708549,
+      "lat": 51.209109,
+      "x_acc": 0.1,
+      "y_acc": 0.4,
+      "z_acc": 0.5
+    },
+    {
+      "lng": 24.708675,
+      "lat": 51.209115,
+      "x_acc": 0.22,
+      "y_acc": 0.2,
+      "z_acc": 0.2
+    },
+    {
+      "lng": 24.708839,
+      "lat": 51.209098,
+      "x_acc": 0.12,
+      "y_acc": 2.3,
+      "z_acc": 4.2
+    },
+    {
+      "lng": 24.708965,
+      "lat": 51.209109,
+      "x_acc": 0.1,
+      "y_acc": 1.3,
+      "z_acc": 1.2
+    },
+    {
+      "lng": 24.709142,
+      "lat": 51.209094,
+      "x_acc": 0.1,
+      "y_acc": 1.1,
+      "z_acc": 1.5
+    },
+    {
+      "lng": 24.709386,
+      "lat": 51.209079,
+      "x_acc": 0.6,
+      "y_acc": 3.5,
+      "z_acc": 3.5
+    },
+    {
+      "lng": 24.709614,
+      "lat": 51.209157,
+      "x_acc": 0,
+      "y_acc": 1.5,
+      "z_acc": 0.7
+    }
+  ]
+}

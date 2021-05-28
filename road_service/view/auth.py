@@ -47,6 +47,7 @@ class Registration(MethodView):
 
     def post(self):
         data: dict = request.json
+        print(data)
         username = data['username']
         first_name = data['first_name']
         last_name = data['last_name']

@@ -20,9 +20,9 @@ def check_hash(password, hash) -> bool:
     return password == hash
 
 
-def create_token(email: str, iat: int) -> str:
+def create_token(username: str, iat: int) -> str:
     headers = {"alg": "HS256", "typ": "JWT"}
-    payload = {"iat": iat, "email": email}
+    payload = {"iat": iat, "username": username}
 
     token = str(jwt.encode(payload, app.config['SECRET_KEY'], headers=headers), "utf-8")
     return token
@@ -42,8 +42,8 @@ def auth():
     if token:
         data = decode_token(token)
         if int(data['iat']) + int(app.config.get('TIME_TO_LIVE', 3600 * 24 * 30)) > time.time():
-            email = data['email']
-            user = db.session.query(User).filter(User.email == email).first()
+            username = data['username']
+            user = db.session.query(User).filter(User.username == username).first()
     g.user = user
 
 

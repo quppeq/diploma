@@ -1,9 +1,12 @@
 from flask import Flask, Blueprint
 
+from road_service.helpers.auth import is_login
+
 from .base import IndexView
 from .maps import MapsView
 from .road import RoadView
 from .user import UserView
+from .auth import Login, Registration
 
 
 def set_up_view(app: Flask):
@@ -28,6 +31,18 @@ def set_up_view(app: Flask):
         'user',
         view_func=UserView.as_view('user')
     )
+
+    mod.add_url_rule(
+        'login',
+        view_func=Login.as_view('login')
+    )
+
+    mod.add_url_rule(
+        'registration',
+        view_func=Registration.as_view('registration')
+    )
+
+    # mod.before_request(is_login)
 
     # Реєстрація блюпрінта
     app.register_blueprint(mod, url_prefix='/')

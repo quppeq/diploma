@@ -1,4 +1,5 @@
 import os
+import logging
 from flask import Flask
 
 from flask_migrate import MigrateCommand, Migrate
@@ -8,7 +9,11 @@ from road_service.db import db
 from road_service.maps import maps
 from road_service.config import configure_app, load_secrets
 
+from road_service.helpers.auth import auth
+
 from road_service.view import set_up_view
+
+log = logging.getLogger(__name__)
 
 ROOT_FOLDER = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_FOLDER = os.path.join(ROOT_FOLDER, 'templates')
@@ -42,6 +47,7 @@ def create_app():
     configure_db(app)
     configure_maps(app)
 
+    app.before_request(auth)
     set_up_view(app)
 
     app.manager = configure_manager(app)

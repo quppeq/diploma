@@ -11,14 +11,13 @@ class RoadView(MethodView):
 
     def get(self):
         roads = db.session.query(Road).filter(
-            Road
         ).all()
         return jsonify(
-            {
+            [{
                 'lat': road.lat,
                 'lng': road.lng
             }
-            for road in roads
+                for road in roads]
         )
 
     def post(self):
@@ -26,7 +25,20 @@ class RoadView(MethodView):
         lat = data['lat']
         lng = data['lng']
 
+        x_acc = data.get('x_acc')
+        y_acc = data.get('y_acc')
+        z_acc = data.get('z_acc')
+
         road = Road(
             lat=lat,
             lng=lng,
+            x_acc=x_acc,
+            y_acc=y_acc,
+            z_acc=z_acc,
         )
+        db.session.add(road)
+        db.session.commit()
+        return jsonify({
+            'lat': road.lat,
+            'lng': road.lng
+        })

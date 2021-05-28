@@ -2,6 +2,7 @@ pyYAML==5.4.1
 
 psycopg2==2.8.6
 SQLAlchemy==1.4.14
+PyJWT == 1.7.1
 
 flask==1.1.2
 

@@ -9,6 +9,7 @@ def configure_app(app):
     app.config["BASE_DIR"] = os.path.dirname(os.path.dirname(__file__))
     app.config["TEMPLATE_FOLDER"] = os.path.join(app.config["BASE_DIR"], 'templates')
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+    app.config["MULTIPLE"] = 2
 
 
 def load_secrets(base_dir: str):

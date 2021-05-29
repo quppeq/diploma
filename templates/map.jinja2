@@ -1,11 +1,24 @@
 {% extends "base.jinja2" %}
 
 {% block head %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{ map.js }}
 {% endblock %}
 
 {% block body %}
 
-    {{ map.html }}
+    <div class="container">
+        <div class="row justify-content-center ">
+        <div class="col-7 align-self-center">
+            <h1 class="h3 mb-3 font-weight-normal">Мапа ям</h1>
+            <div>
+                {{ map.html }}
+            </div>
+            <div style="text-align:center;">
+            <form method="post">
+                <button type="submit" class="btn btn-primary">Оновити мапу</button>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
 {% endblock %}

@@ -17,6 +17,7 @@ log = logging.getLogger(__name__)
 
 ROOT_FOLDER = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_FOLDER = os.path.join(ROOT_FOLDER, 'templates')
+STATIC_FOLDER = os.path.join(ROOT_FOLDER, 'static')
 
 
 def configure_db(app: Flask):
@@ -39,6 +40,7 @@ def create_app():
     app = Flask(
         __name__,
         template_folder=TEMPLATE_FOLDER,
+        static_folder=STATIC_FOLDER,
     )
     configure_app(app)
     app.config.update(load_secrets(app.config['BASE_DIR']))

@@ -1,7 +1,10 @@
 import math
+import logging
 from road_service.db import db
 from road_service.models.road import Road, Pit, RoadGroup
 from road_service.models.user import User
+
+logger = logging.getLogger(__name__)
 
 
 def distance(lat1, lng1, lat2, lng2):
@@ -23,11 +26,11 @@ def distance(lat1, lng1, lat2, lng2):
     return meter
 
 
-def scan_road(multiple):
+def scan_road(multiple: int):
     groups = db.session.query(RoadGroup).filter(
         RoadGroup.checked == False
     ).all()
-
+    logger.info(groups)
     for group in groups:
         roads = group.roads
         prev = None
@@ -35,11 +38,11 @@ def scan_road(multiple):
             if not prev:
                 prev = road
                 continue
-            if road.z_acc > prev.z_acc * 2 + 1:
+            if road.z_acc > prev.z_acc * multiple + 1:
                 db.session.add(Pit(
                     lat=road.lat,
                     lng=road.lng,
                     user_id=road.user_id,
                 ))
-    db.session.query()
+        group.checked = True
 

@@ -37,6 +37,8 @@ def decode_token(token: str):
 
 
 def auth():
+    if '/static/' in request.path:
+        return
     token = request.headers.get('Authorization')
     user = None
     if token:

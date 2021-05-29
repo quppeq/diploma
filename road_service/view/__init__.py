@@ -4,9 +4,7 @@ from road_service.helpers.auth import is_login
 
 from .base import IndexView
 from .maps import MapsView
-from .road import RoadView, PitView
-from .user import UserView
-from .auth import Login, Registration
+from .road import PitView
 
 
 def set_up_view(app: Flask):
@@ -23,28 +21,8 @@ def set_up_view(app: Flask):
     )
 
     mod.add_url_rule(
-        'road',
-        view_func=RoadView.as_view('road')
-    )
-
-    mod.add_url_rule(
         'pits',
         view_func=PitView.as_view('pits')
-    )
-
-    mod.add_url_rule(
-        'user',
-        view_func=UserView.as_view('user')
-    )
-
-    mod.add_url_rule(
-        'login',
-        view_func=Login.as_view('login')
-    )
-
-    mod.add_url_rule(
-        'registration',
-        view_func=Registration.as_view('registration')
     )
 
     # mod.before_request(is_login)

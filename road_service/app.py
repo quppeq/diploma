@@ -12,6 +12,7 @@ from road_service.config import configure_app, load_secrets
 from road_service.helpers.auth import auth
 
 from road_service.view import set_up_view
+from road_service.api import set_up_api
 
 log = logging.getLogger(__name__)
 
@@ -51,6 +52,7 @@ def create_app():
 
     app.before_request(auth)
     set_up_view(app)
+    set_up_api(app)
 
     app.manager = configure_manager(app)
 

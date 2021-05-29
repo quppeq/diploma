@@ -8,7 +8,7 @@ from flask import current_app as app
 from road_service.db import db
 from road_service.models.user import User
 
-OPEN_API_ROUTES = ['login', 'registration', 'pits']
+OPEN_API_ROUTES = ['api.login', 'api.registration', 'pits']
 
 
 def hash_password(password) -> str:

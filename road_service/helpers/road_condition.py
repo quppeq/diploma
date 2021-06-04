@@ -38,7 +38,7 @@ def scan_road(multiple: int):
             if not prev:
                 prev = road
                 continue
-            if road.z_acc > prev.z_acc * multiple + 1:
+            if (road.z_acc - prev.z_acc) * multiple > 1:
                 db.session.add(Pit(
                     lat=road.lat,
                     lng=road.lng,
